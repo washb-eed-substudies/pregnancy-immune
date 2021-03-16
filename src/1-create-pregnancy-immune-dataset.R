@@ -6,7 +6,7 @@ rm(list=ls())
 source(here::here("0-config.R"))
 
 
-d<-read.csv(paste0(dropboxDir, "Data/Cleaned/Audrie/washb-bd-pregnancy-serum-micronutrient-immun-cortisol-covariates-child-immune (1).csv"))
+d<-read.csv(paste0(dropboxDir, "Data/Cleaned/Audrie/washb-bd-pregnancy-serum-micronutrient-immun-cortisol-covariates-child-immune.csv"))
 names(d)
 
 summary(d$mom_t0_ln_il2)
