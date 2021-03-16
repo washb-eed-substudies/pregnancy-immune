@@ -11,7 +11,7 @@ d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covari
 Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", 
            "vit_A_def", "iron_def", "vit_D_def")            
 Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_ifn", "sumscore_t3_Z")
+           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
 
 #Fit models
 H1_models <- NULL
@@ -64,9 +64,9 @@ saveRDS(H1_plot_data, here("figure-data/H1_unadj_spline_data.RDS"))
 ## Hypothesis 2
 # Maternal stress is positively associated with child inflammation
 
-Xvars <- c("preg_cort")            
+Xvars <- c("ln_preg_cort")            
 Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_ifn", "sumscore_t3_Z")
+           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
 
 #Fit models
 H2_models <- NULL
@@ -116,7 +116,7 @@ saveRDS(H2_plot_data, here("figure-data/H2_unadj_spline_data.RDS"))
 
 Xvars <- c("logCRP", "logAGP", "mom_t0_ln_ifn", "sumscore_t0_mom_Z")            
 Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_ifn", "sumscore_t3_Z")
+           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
 
 #Fit models
 H3_models <- NULL
@@ -164,9 +164,9 @@ saveRDS(H3_plot_data, here("figure-data/H3_unadj_spline_data.RDS"))
 ##Hypothesis 4
 # Maternal estriol is negatively associated with child inflammation
                                                                                             
-Xvars <- c("preg_estri")            
+Xvars <- c("ln_preg_estri")            
 Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
-           "t3_ln_ifn", "sumscore_t3_Z")
+           "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z")
 
 #Fit models
 H4_models <- NULL

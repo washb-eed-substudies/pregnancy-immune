@@ -6,7 +6,7 @@ rm(list=ls())
 source(here::here("0-config.R"))
 
 
-d<-read.csv(paste0(dropboxDir, "Data/Cleaned/Audrie/washb-bd-pregnancy-serum-micronutrient-immun-cortisol-covariates-child-immune.csv"))
+d<-read.csv(paste0(dropboxDir, "Data/Cleaned/Audrie/washb-bd-pregnancy-serum-micronutrient-immun-cortisol-covariates-child-immune (1).csv"))
 names(d)
 
 summary(d$mom_t0_ln_il2)
@@ -124,8 +124,8 @@ dfull <- left_join(d2, d_sum_child, by="childid")
 ############# Check covariate missingness ###################
 # a few exposures and outcomes
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf",
-         "preg_cort", "logCRP", "logAGP", "ifng_mom_t0", "preg_cort")
-out <- c("t2_ln_agp", "t2_ln_crp", "t2_ln_ifn", "t3_ln_ifn")
+         "ln_preg_cort", "logCRP", "logAGP", "ifng_mom_t0", "ln_preg_estri")
+out <- c("t2_ln_agp", "t3_ln_agp", "t2_ln_crp", "t3_ln_agp", "t2_ln_ifn", "t3_ln_ifn")
 
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "roof", "HHwealth",
