@@ -69,7 +69,7 @@ out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months",
              "Ln IFN Age 28 months", "Sum score of 13 cytokines Age 28 months")
 
 tbl2 <- growth_tbl("Maternal Nutrition and Child Inflammation", expo_var, out_var, exposure, outcome, H1, H1adj, T)
-tbl2flex <- growth_tbl_flex("Maternal Nutrition and Child Inflammation", expo_var, out_var, exposure, outcome, H1, H1adj, T)
+tbl2flex <- growth_tbl_flex("Maternal Nutrition and Child Inflammation", expo_var, out_var, exposure, outcome, H1, H1adj, T, 1.1, 1.4)
 tbl2supp <- growth_tbl("Maternal Nutrition and Child Inflammation", expo_var, out_var, exposure, outcome, H1, H1adj,)
 tbl2flexsupp <- growth_tbl_flex("Maternal Nutrition and Child Inflammation", expo_var, out_var, exposure, outcome, H1, H1adj,)
 
@@ -84,7 +84,7 @@ out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months",
              "Ln IFN Age 28 months", "Sum score of 13 cytokines Age 28 months")
 
 tbl3 <- growth_tbl("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H2, H2adj, T)
-tbl3flex <- growth_tbl_flex("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H2, H2adj, T)
+tbl3flex <- growth_tbl_flex("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H2, H2adj, T, 1.1, 1.4)
 tbl3supp <- growth_tbl("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H2, H2adj)
 tbl3flexsupp <- growth_tbl_flex("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H2, H2adj)
 
@@ -101,7 +101,7 @@ out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months",
              "Ln IFN Age 28 months", "Sum score of 13 cytokines Age 28 months")
 
 tbl4 <- growth_tbl("Maternal Inflammation and Child Inflammation", expo_var, out_var, exposure, outcome, H3, H3adj, T)
-tbl4flex <- growth_tbl_flex("Maternal Inflammation and Child Inflammation", expo_var, out_var, exposure, outcome, H3, H3adj, T)
+tbl4flex <- growth_tbl_flex("Maternal Inflammation and Child Inflammation", expo_var, out_var, exposure, outcome, H3, H3adj, T, 1.1, 1.4)
 tbl4supp <- growth_tbl("Maternal Inflammation and Child Inflammation", expo_var, out_var, exposure, outcome, H3, H3adj)
 tbl4flexsupp <- growth_tbl_flex("Maternal Inflammation and Child Inflammation", expo_var, out_var, exposure, outcome, H3, H3adj)
 
@@ -117,7 +117,7 @@ out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months",
              "Ln IFN Age 28 months", "Sum score of 13 cytokines Age 28 months")
 
 tbl5 <- growth_tbl("Maternal Stress and Child Inflammation", expo_var, out_var, exposure, outcome, H4, H4adj, T)
-tbl5flex <- growth_tbl_flex("Maternal Estriol and Child Inflammation", expo_var, out_var, exposure, outcome, H4, H4adj, T)
+tbl5flex <- growth_tbl_flex("Maternal Estriol and Child Inflammation", expo_var, out_var, exposure, outcome, H4, H4adj, T, .8, 1.4)
 tbl5supp <- growth_tbl("Maternal Estriol and Child Inflammation", expo_var, out_var, exposure, outcome, H4, H4adj)
 tbl5flexsupp <- growth_tbl_flex("Maternal Estriol and Child Inflammation", expo_var, out_var, exposure, outcome, H4, H4adj)
 
@@ -138,11 +138,15 @@ save_as_docx("Table 1: Association between Maternal Nutrition During Pregnancy a
              "Table 2: Association between Maternal Stress During Pregnancy and Child Inflammation" = tbl3flex, 
              "Table 3: Association between Maternal Inflammation and Child Inflammation" = tbl4flex, 
              "Table 4: Association between Maternal Estriol and Child Inflammation" = tbl5flex,
-             path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune.docx') 
+             path = 'C:/Users/Sophia/Documents/WASH/WASH Pregnancy and Immune Markers/pregnancy-immune tables.docx',
+             pr_section = sect_properties)
+             #path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune.docx') 
              
 save_as_docx("Table S1: Association between Maternal Nutrition During Pregnancy and Child Inflammation" = tbl2flexsupp, 
              "Table S2: Association between Maternal Stress During Pregnancy and Child Inflammation" = tbl3flexsupp, 
              "Table S3: Association between Maternal Inflammation and Child Inflammation" = tbl4flexsupp, 
              "Table S4: Table 4: Association between Maternal Estriol and Child Inflammation" = tbl5flexsupp, 
-             path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune-supplementary.docx')
+             path = 'C:/Users/Sophia/Documents/WASH/WASH Pregnancy and Immune Markers/pregnancy-immune supplementary tables.docx',
+             pr_section = sect_properties)
+             #path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune-supplementary.docx')
 
