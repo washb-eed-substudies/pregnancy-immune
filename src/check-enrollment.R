@@ -20,7 +20,7 @@ has_outy1$childid%>%unique()%>%length()
 has_outy2$childid%>%unique()%>%length()
 
 y1 <- has_exp[apply(select(has_exp, grep("t2_ln", names(d)), sumscore_t2_Z), 1, filtering),] 
-y2 <- has_exp[apply(select(has_exp, grep("t3_ln", names(d)), sumscore_t3_Z), 1, filtering),]
+y2 <- has_exp[apply(select(has_exp, c("t3_ln_crp", "t3_ln_agp", "t3_ln_ifn","sumscore_t3_Z"), sumscore_t3_Z), 1, filtering),]
 
 nrow(y1)
 y1$dataid %>% unique() %>% length()
