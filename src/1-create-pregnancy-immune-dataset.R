@@ -5,10 +5,15 @@ rm(list=ls())
 
 source(here::here("0-config.R"))
 
-
+library(boxr)
+box_auth()
+updated_pregnancy <- box_read(845078269128)
+updated_pregnancy <- updated_pregnancy %>% select(dataid, preg_estri, preg_cort) %>%
+  mutate(dataid = as.integer(dataid))
 d<-read.csv(paste0(dropboxDir, "Data/Cleaned/Audrie/washb-bd-pregnancy-serum-micronutrient-immun-cortisol-covariates-child-immune.csv"))
 names(d)
 
+d <- left_join(d, updated_pregnancy, "dataid")
 summary(d$mom_t0_ln_il2)
 
 ######### Add combined ratios of cytokines ##########
