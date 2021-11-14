@@ -2,7 +2,7 @@ rm(list=ls())
 
 source(here::here("0-config.R"))
 
-d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
+#d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
 ##Hypothesis 1
 #Maternal nutrition is negatively associated with child inflammation
@@ -58,7 +58,7 @@ saveRDS(H1_plot_data, here("figure-data/cytokine-ratios_unadj_spline_data.RDS"))
 #Make vectors of adjustment variable names
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth",
-         "tr", "life_viol_any_t3", "viol_any_preg")
+         "tr", "life_viol_any_t3_cat", "viol_any_preg_cat")
 
 Wvars[!(Wvars %in% colnames(d))]
 

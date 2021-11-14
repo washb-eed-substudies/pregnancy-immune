@@ -40,7 +40,9 @@ if(dir.exists("/Users/lisa/Dropbox/WASH/")){
   dropboxDir <- "/Users/lisa/Dropbox/WASH/"
 }
 
-
+library(boxr)
+box_auth()
+d <- box_read(871638120165) %>% filter(pregnancy_immune == 1)
 
 theme_ki<-function(){
   theme_bw() %+replace%

@@ -2,13 +2,13 @@ rm(list=ls())
 
 source(here::here("0-config.R"))
 
-d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
+#d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
 #Set list of adjustment variables
 #Make vectors of adjustment variable names
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth",
-         "tr", "life_viol_any_t3", "viol_any_preg")
+         "tr", "life_viol_any_t3_cat", "viol_any_preg_cat")
 
 Wvars[!(Wvars %in% colnames(d))]
 
@@ -243,3 +243,4 @@ saveRDS(H4_res, here("results/adjusted/H4_adj_res.RDS"))
 
 #Save plot data
 saveRDS(H4_plot_data, here("figure-data/H4_adj_spline.data.RDS"))
+
