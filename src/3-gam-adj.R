@@ -101,8 +101,8 @@ for(i in Xvars){
   for(j in Yvars){
     print(i)
     print(j)
-    Wset<-pick_covariates(j)
-    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset)
+    Wset<-c(pick_covariates(j), "time_of_day_cort_cont")
+    res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset, forcedW = c("time_of_day_cort_cont"))
     res <- data.frame(X=i, Y=j, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
     H2_adj_models <- bind_rows(H2_adj_models, res)
   }
