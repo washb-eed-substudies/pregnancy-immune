@@ -62,7 +62,7 @@ full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj)
 exposure <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", "vit_D_def", "vit_A_def", "iron_def") 
 outcome <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
              "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn","sumscore_t3_Z")
-expo_var <- c("Vit D (nmol/L)", "Log ferritin", "Log sTfR", "Log RBP", "Vit D deficiency", "Vit A deficiency", "Iron deficiency") 
+expo_var <- c("Vit D (nmol/L)", "Ln ferritin", "Ln sTfR", "Ln RBP", "Vit D deficiency", "Vit A deficiency", "Iron deficiency") 
 out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months", 
              "Ln IFN Age 14 months", "Sum score of 13 cytokines Age 14 months", 
              "Ln CRP Age 28 months", "Ln AGP Age 28 months", 
@@ -94,7 +94,7 @@ tbl3flexsupp <- growth_tbl_flex("Maternal Stress and Child Inflammation", expo_v
 exposure <- c("logCRP", "log AGP", "mom_t0_ln_ifn", "sumscore_t0_mom_Z")   
 outcome <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
              "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn","sumscore_t3_Z")
-expo_var <- c("Log CRP", "Log AGP", "Maternal Initial Ln IFN", "Maternal sum score of 13 cytokines") 
+expo_var <- c("Ln CRP", "Ln AGP", "Maternal Initial Ln IFN", "Maternal sum score of 13 cytokines") 
 out_var <- c("Ln CRP Age 14 months", "Ln AGP Age 14 months", 
              "Ln IFN Age 14 months", "Sum score of 13 cytokines Age 14 months", 
              "Ln CRP Age 28 months", "Ln AGP Age 28 months", 
@@ -134,19 +134,22 @@ write.csv(tbl3supp, here('tables/supplementary/immune-growth-supptable3.csv'))
 write.csv(tbl4supp, here('tables/supplementary/immune-growth-supptable4.csv'))
 write.csv(tbl5supp, here('tables/supplementary/immune-growth-supptable5.csv'))
 
+sect_properties <- prop_section(
+        page_size = page_size(orient = "landscape", width=11, height=8.5),
+        page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
+)
+
 save_as_docx("Table 1: Association between Maternal Nutrition During Pregnancy and Child Inflammation" = tbl2flex, 
-             "Table 2: Association between Maternal Stress During Pregnancy and Child Inflammation" = tbl3flex, 
-             "Table 3: Association between Maternal Inflammation and Child Inflammation" = tbl4flex, 
-             "Table 4: Association between Maternal Estriol and Child Inflammation" = tbl5flex,
-             path = 'C:/Users/Sophia/Documents/WASH/WASH Pregnancy and Immune Markers/pregnancy-immune tables.docx',
-             pr_section = sect_properties)
-             #path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune.docx') 
+             "Table 2: Association between Maternal Stress During Pregnancy and Child Inflammation" = tbl3flex,
+             "Table 3: Association between Maternal Estriol and Child Inflammation" = tbl5flex,
+             "Table 4: Association between Maternal Inflammation and Child Inflammation" = tbl4flex,
+             path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/pregnancy-immune.docx',
+             pr_section = sect_properties) 
              
 save_as_docx("Table S1: Association between Maternal Nutrition During Pregnancy and Child Inflammation" = tbl2flexsupp, 
              "Table S2: Association between Maternal Stress During Pregnancy and Child Inflammation" = tbl3flexsupp, 
-             "Table S3: Association between Maternal Inflammation and Child Inflammation" = tbl4flexsupp, 
-             "Table S4: Table 4: Association between Maternal Estriol and Child Inflammation" = tbl5flexsupp, 
-             path = 'C:/Users/Sophia/Documents/WASH/WASH Pregnancy and Immune Markers/pregnancy-immune supplementary tables.docx',
+             "Table S3: Association between Maternal Estriol and Child Inflammation" = tbl5flexsupp, 
+             "Table S4: Association between Maternal Inflammation and Child Inflammation" = tbl4flexsupp,
+             path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/pregnancy-immune-supplementary.docx',
              pr_section = sect_properties)
-             #path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune-supplementary.docx')
 
