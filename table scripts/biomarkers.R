@@ -14,12 +14,12 @@ writeqntle<-function(vector) {
 }
 
 mom_lab <-c("Maternal Biomarker", 
-        "Vit D (??mol/L)", "RBP (mg/L)", "Ferritin (??g/L)", "sTfR (mg/L)",  
+        "Vit D (μmol/L)", "RBP (mg/L)", "Ferritin (μg/L)", "sTfR (mg/L)",  
         "Cortisol (mcg/dL)", "Estriol",
-        "IL-1?? (pg/ml)", "Il-6 (pg/ml)", "TNF-?? (pg/ml)", "IL-12 (pg/ml)", "IFN-?? (pg/ml)", "IL-4 (pg/ml)", "IL-5 (pg/ml)", "IL-13 (pg/ml)", "IL-17A (pg/ml)", "IL-21 (pg/ml)", "IL-10 (pg/ml)", "IL-2 (pg/ml)", "GM-CSF (pg/ml)", "AGP (g/L)", "CRP (mg/L)")
+        "IL-1β (pg/ml)", "Il-6 (pg/ml)", "TNF-α (pg/ml)", "IL-12 (pg/ml)", "IFN-γ (pg/ml)", "IL-4 (pg/ml)", "IL-5 (pg/ml)", "IL-13 (pg/ml)", "IL-17A (pg/ml)", "IL-21 (pg/ml)", "IL-10 (pg/ml)", "IL-2 (pg/ml)", "GM-CSF (pg/ml)", "AGP (g/L)", "CRP (mg/L)")
 
 child_lab <-c("Child Biomarker", 
-          "IL-1?? (pg/ml)", "Il-6 (pg/ml)", "TNF-?? (pg/ml)", "IL-12 (pg/ml)", "IFN-?? (pg/ml)", "IL-4 (pg/ml)", "IL-5 (pg/ml)", "IL-13 (pg/ml)", "IL-17A (pg/ml)", "IL-21 (pg/ml)", "IL-10 (pg/ml)", "IL-2 (pg/ml)", "GM-CSF (pg/ml)", "AGP (g/L)", "CRP (mg/L)")
+          "IL-1β (pg/ml)", "Il-6 (pg/ml)", "TNF-α (pg/ml)", "IL-12 (pg/ml)", "IFN-γ (pg/ml)", "IL-4 (pg/ml)", "IL-5 (pg/ml)", "IL-13 (pg/ml)", "IL-17A (pg/ml)", "IL-21 (pg/ml)", "IL-10 (pg/ml)", "IL-2 (pg/ml)", "GM-CSF (pg/ml)", "AGP (g/L)", "CRP (mg/L)")
 
 mom <-c("Median (25th, 75th percentile)", 
         writeqntle(d$vitD_nmol_per_L), writeqntle(d$rbp), writeqntle(d$ferr), writeqntle(d$stfr),
