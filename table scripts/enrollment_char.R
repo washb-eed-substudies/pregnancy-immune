@@ -3,7 +3,7 @@ library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy_child_immune_covariates_data.rds")
+d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
   any(!is.na(row))
