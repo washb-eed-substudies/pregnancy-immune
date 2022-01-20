@@ -150,9 +150,9 @@ p +
     size=0.15, linejoin = "mitre", lineend = "butt",
     arrow = arrow(length = unit(1, "mm"), type= "closed")) ->
   p
-p
+#p
 
 # YOU MAY NEED TO CHANGE THE FILE PATHS HERE
-ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune_enrollment_figure1.jpg"), height=14, width=9)
+ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/enrollment/pregnancy-immune_enrollment_figure1.jpg"), height=14, width=9)
 
 

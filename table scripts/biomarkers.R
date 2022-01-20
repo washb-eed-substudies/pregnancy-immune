@@ -14,7 +14,7 @@ writeqntle<-function(vector) {
 }
 
 mom_lab <-c("Maternal Biomarker", 
-        "Vit D (umol/L)", "RBP (mg/L)", "Ferritin (ug/L)", "sTfR (mg/L)",  
+        "Vit D (nmol/L)", "RBP (mg/L)", "Ferritin (ug/L)", "sTfR (mg/L)",  
         "Cortisol (mcg/dL)", "Estriol",
         "IL-1B (pg/ml)", "Il-6 (pg/ml)", "TNF-a (pg/ml)", "IL-12 (pg/ml)", "IFN-y (pg/ml)", "IL-4 (pg/ml)", "IL-5 (pg/ml)", "IL-13 (pg/ml)", "IL-17A (pg/ml)", "IL-21 (pg/ml)", "IL-10 (pg/ml)", "IL-2 (pg/ml)", "GM-CSF (pg/ml)", "AGP (g/L)", "CRP (mg/L)")
 
@@ -37,10 +37,13 @@ child_tbl<-data.table(" "= child_lab,
                 "Age 14 Months"=child_t2,
                 "Age 28 Months"=child_t3)
 
-view(mom_tbl)
-view(child_tbl)
+#view(mom_tbl)
+#view(child_tbl)
 
 sum(d$vit_A_def, na.rm=T)
+sum(d$vit_D_def, na.rm=T)
+sum(d$iron_def, na.rm=T)
+sum()
 
 sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),

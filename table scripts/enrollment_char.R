@@ -98,7 +98,7 @@ sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
-save_as_docx("Table 1" = enroll, path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune-enrollment.docx", 
+save_as_docx("Table 1" = enroll, path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/enrollment/pregnancy-immune-enrollment.docx", 
              pr_section = sect_properties) 
 
 #table(d$momedu)
