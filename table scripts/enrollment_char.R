@@ -8,12 +8,16 @@ d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 filtering <- function(row){
   any(!is.na(row))
 }
+d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
+filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
+#unique moms
+m <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
 
 # MATERNAL PREGNANCY BIOMARKERS UNCOMMENT AND FILL IN THIS CODE (UNCOMMENT WITH CTRL+SHIFT+C ON PC)
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", "vit_D_def", "vit_A_def", "iron_def", "ln_preg_cort", "logCRP", "logAGP", "mom_t0_ln_ifn", "sumscore_t0_mom_Z", "ln_preg_estri") 
 out <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
              "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn","sumscore_t3_Z") 
-d <- d[apply(select(d, all_of(exp)), 1, filtering),] # only has rows where we have exposure data for the mom
+m <- m[apply(select(d, all_of(exp)), 1, filtering),] # only has rows where we have exposure data for the mom
 d <- d[apply(select(d, all_of(out)), 1, filtering),] # only has rows where we have both some exposure data and some outcome data (all kids included in analyses)
 
 # OTHER ANALYSES WITH T2 AND T3 EXPOSURES AND OUTCOMES UNCOMMENT AND FILL IN THE CODE BELOW (UNCOMMENT WITH CTRL+SHIFT+C ON PC)
