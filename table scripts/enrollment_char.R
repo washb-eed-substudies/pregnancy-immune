@@ -48,7 +48,7 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
     paste(quantiles[3], " (", quantiles[2], ", ", quantiles[4], ")", sep="")
   }
   
-  child <- c('sex',child_char,'laz_t1','waz_t1','whz_t1','hcz_t1',
+  child <- c('sex', child_char,'laz_t1','waz_t1','whz_t1','hcz_t1',
              'laz_t2','waz_t2','whz_t2','hcz_t2',
              'laz_t3','waz_t3','whz_t3','hcz_t3','diar7d_t2','diar7d_t3')
   
@@ -56,7 +56,7 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
   
   n_med_col <- NULL
   for (var in c(child, mom)) {
-    if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'life_viol_any_t3') | is.factor(d[[var]])) {
+    if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'life_viol_any_t3', 'hfiacat_ind') | is.factor(d[[var]])) {
       if (var == 'sex') {
         n <- sum(d$sex=='female', na.rm=T)
         perc <- round(n/sum(!is.na(d$sex))*100)
@@ -70,18 +70,21 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
     }
   }
 
-  tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),"Mother", rep("",length(mom)-1)),
-                     "C2" = c("", rep("", length(child_char)), "Anthropometry (3 months, Year 1)","","","",
-                              "Anthropometry (14 months, Year 1)","","","",
-                              "Anthropometry (28 months, Year 2)","","","", "Diarrhea (14 months, Year 1)", "Diarrhea (28 months, Year 2)","",
-                              "Anthropometry at enrollment", "Education", rep("", length(mom_char)), "Depression at Year 1", "Depression at Year 2", "Perceived stress at Year 2", 
-                              "Intimate partner violence"),
+  household <- c('hfiacat_ind')
+  m$hfiacat_ind <- ifelse(m$hfiacat=="Food Secure", 0, 1)
+  
+  tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),"Mother", rep("",length(mom)-1), "Household", rep("",length(household)-1)),
+                     "C2" = c("", rep("", length(child_char)), "Anthropometry (3 months)","","","",
+                              "Anthropometry (14 months)","","","",
+                              "Anthropometry (28 months)","","","", "Diarrhea (14 months)", "Diarrhea (28 months)","",
+                              "Anthropometry at enrollment", "Education", rep("", length(mom_char)), "Depression 14 Months", "Depression 28 Months", "Perceived stress 28 Months", 
+                              "Intimate partner violence", "Household Food Insecurity"),
                      "C3" = c("Female", child_char_names,
                               "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
                               "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
                               "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
                               "Caregiver-reported 7-day recall", "Caregiver-reported 7-day recall", "Age (years)", "Height (cm)", "Schooling completed (years)",
-                              mom_char_names, "CES-D score", "CES-D score", "Perceived Stress Scale score", "Any lifetime exposure"),
+                              mom_char_names, "CES-D score", "CES-D score", "Perceived Stress Scale score", "Any lifetime exposure", "Food-insecure households"),
                      "C4" = n_med_col)
   
   tbl1flex <- flextable(tbl1, col_keys=names(tbl1))
@@ -96,8 +99,9 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
   tbl1flex
 }
 
-enroll <- characteristics(d, child_char = c("hfias"), 
-                          child_char_names = c("Household Food Insecurity"))
+
+sum(m$hfiacat_ind)
+
 sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)

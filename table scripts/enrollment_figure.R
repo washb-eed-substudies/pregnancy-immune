@@ -63,50 +63,50 @@ p +
   geom_rect(xmin = 76, xmax=96, ymin=58, ymax=68, color='black',
             fill='white', size=0.25) +
   annotate('text', x= 86, y=64.8,label= "paste(bold('Number of clusters not \n selected into substudy'))", parse=TRUE, size=3) + 
-  annotate('text', x= 86, y=63.4,label= "paste(bold('Year 1 '))", parse=TRUE, size=3) + 
+  annotate('text', x= 86, y=63.4,label= "paste(bold('14 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 86, y=62.1,label= '139 clusters', size=3) + 
-  annotate('text', x= 86, y=60.9,label= "paste(bold('Year 2'))", parse=TRUE, size=3) + 
+  annotate('text', x= 86, y=60.9,label= "paste(bold('28 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 86, y=59.7,label= '135 clusters', size=3) +
   
   geom_rect(xmin = 42, xmax=58, ymin=52, ymax=62, color='black',
             fill='white', size=0.25) +
-  annotate('text', x=50, y=61.2,label= "paste(bold('Year 1'))", parse=TRUE, size=3) + 
+  annotate('text', x=50, y=61.2,label= "paste(bold('14 Months'))", parse=TRUE, size=3) + 
   annotate('text', x=50, y=60.2,label= '\n\n131 clusters \n996 children', size=3) +
-  annotate('text', x=50, y=56.2,label= "paste(bold('Year 2'))", parse=TRUE, size=3) + 
+  annotate('text', x=50, y=56.2,label= "paste(bold('28 Months'))", parse=TRUE, size=3) + 
   annotate('text', x=50, y=55.2,label= '\n\n135 clusters \n1,021 children', size=3) +
   
   
   geom_rect(xmin = 37, xmax=63, ymin=26, ymax=50, color='black',
             fill='white', size=0.25) +
-  annotate('text', x= 50, y=48.9,label= "paste(bold('Year 1'))", parse=TRUE, size=3) + 
+  annotate('text', x= 50, y=48.9,label= "paste(bold('14 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 50, y=45.1,label= '\n\n240 children lost to follow-up \n23 moved \n45 absent \n76 withdrew \n66 no live birth \n30 child death ', size=3) + 
-  annotate('text', x= 50, y=37.7,label= "paste(bold('Year 2'))", parse=TRUE, size=3) + 
+  annotate('text', x= 50, y=37.7,label= "paste(bold('28 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 50, y=32.3,label= '\n  25 new children measured \n262 children lost to follow-up \n63 moved \n5 absent \n90 withdrew \n67 no live birth \n37 child death ', size=3) + 
   annotate('text', x= 10, y=38.1,label= 'Follow-up', size=4) +
   
   geom_rect(xmin = 42, xmax=58, ymin=14, ymax=24, color='black',
             fill='white', size=0.25) +
-  annotate('text', x= 50, y=23.2,label= "paste(bold('Year 1'))", parse=TRUE, size=3) +
+  annotate('text', x= 50, y=23.2,label= "paste(bold('14 Months'))", parse=TRUE, size=3) +
   annotate('text', x= 50, y=22.2,label= '\n\n131 clusters \n756 children', size=3) + 
-  annotate('text', x= 50, y=18.2,label= "paste(bold('Year 2'))", parse=TRUE, size=3) +
+  annotate('text', x= 50, y=18.2,label= "paste(bold('28 Months'))", parse=TRUE, size=3) +
   annotate('text', x= 50, y=17.2,label= '\n\n135 clusters \n759 children  ', size=3) + 
   annotate('text', x= 10, y=19,label= 'Subsample Enrollment', size=4) +
   
   
   geom_rect(xmin = 36, xmax=64, ymin=4, ymax=12, color='black',
             fill='white', size=0.25) +
-  annotate('text', x= 50, y=10.2,label= "paste(bold('Year 1'))", parse=TRUE, size=3) + 
+  annotate('text', x= 50, y=10.2,label= "paste(bold('14 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 50, y=9.6,label= paste("\n", 756-y1_n, '  missing exposure or outcome', sep=""), size=3) + 
-  annotate('text', x= 50, y=7.2,label= "paste(bold('Year 2'))", parse=TRUE, size=3) + 
+  annotate('text', x= 50, y=7.2,label= "paste(bold('28 Months'))", parse=TRUE, size=3) + 
   annotate('text', x= 50, y=6.6,label= paste("\n", 759-y2_n, '  missing exposure or outcome', sep=""), size=3) + 
   annotate('text', x= 10, y=8,label= 'Specimen Collection', size=4) +
   
   
   geom_rect(xmin = 42, xmax=58, ymin=-8, ymax=2, color='black',
             fill='white', size=0.25) +
-  annotate('text', x= 50, y=1.2,label= "paste(bold('Year 1'), sep='')", parse=T, size=3) +
+  annotate('text', x= 50, y=1.2,label= "paste(bold('14 Months'), sep='')", parse=T, size=3) +
   annotate('text', x= 50, y=.2,label= paste("\n\n", y1_clusters, ' clusters \n ', y1_n, ' children', sep=''), size=3) +
-  annotate('text', x= 50, y=-3.8,label= "paste(bold('Year 2'), sep='')", parse=T, size=3) +
+  annotate('text', x= 50, y=-3.8,label= "paste(bold('28 Months'), sep='')", parse=T, size=3) +
   annotate('text', x= 50, y=-4.8,label= paste("\n\n", y2_clusters, ' clusters \n ', y2_n, ' children', sep=''), size=3) +
   annotate('text', x= 10, y=-3,label= 'Analysis', size=4) ->
   p
@@ -153,6 +153,6 @@ p +
 #p
 
 # YOU MAY NEED TO CHANGE THE FILE PATHS HERE
-ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/enrollment/pregnancy-immune_enrollment_figure1.jpg"), height=14, width=9)
+ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/figures/pregnancy-immune_enrollment_figure1.jpg"), height=14, width=9)
 
 
