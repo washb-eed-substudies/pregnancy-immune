@@ -84,7 +84,7 @@ for(i in Xvars){
     print(j)
     Wset<-pick_covariates(j)
     res_adj <- fit_RE_gam(d=d, X=i, Y=j,  W=Wset, V="tr")
-    res <- data.frame(X=i, Y=j, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
+    res <- data.frame(X=i, Y=j, V="tr", int.p =res_adj$int.p, fit=I(list(res_adj$fit)), dat=I(list(res_adj$dat)))
     H1_adj_models <- bind_rows(H1_adj_models, res)
   }
 }
@@ -94,12 +94,15 @@ H1_adj_res <- NULL
 for(i in 1:nrow(H1_adj_models)){
   res <- data.frame(X=H1_adj_models$X[i], Y=H1_adj_models$Y[i])
   if(grepl("_def", H1_adj_models$X[i])){
-    preds <- predict_gam_diff(fit=H1_adj_models$fit[i][[1]], d=H1_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y, binary=T)
+    preds <- predict_gam_emm(fit=H1_adj_models$fit[i][[1]], d=H1_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=H1_adj_models$X[i], Yvar=H1_adj_models$Y[i], binaryX=T)
   }else{
-    preds <- predict_gam_diff(fit=H1_adj_models$fit[i][[1]], d=H1_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y)
+    preds <- predict_gam_emm(fit=H1_adj_models$fit[i][[1]], d=H1_adj_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=H1_adj_models$X[i], Yvar=H1_adj_models$Y[i])
   }
-  H1_adj_res <-  bind_rows(H1_adj_res , preds$res)
+  gamm_diff_res <- data.frame(V=H1_adj_models$V[i] , preds$res) %>% mutate(int.Pval = c(NA, H1_adj_models$int.p[[i]]))
+  
+  H1_adj_res <-  bind_rows(H1_adj_res , gamm_diff_res)
 }
+
 
 #Make list of plots
 H1_adj_plot_list <- NULL
@@ -111,11 +114,12 @@ for(i in 1:nrow(H1_adj_models)){
   H1_adj_plot_data <-  rbind(H1_adj_plot_data, data.frame(Xvar=res$X, Yvar=res$Y, adj=0, simul_plot$pred %>% subset(., select = c(Y,X,id,fit,se.fit,uprP, lwrP,uprS,lwrS))))
 }
 
-H1_adj_res <- H1_adj_res %>% mutate(BH.Pval=p.adjust(Pval, method="BH")) 
+H1_adj_res <- H1_adj_res %>% mutate(BH.Pval=p.adjust(Pval, method="BH"),
+                                    BH.Pval.int=p.adjust(int.Pval, method="BH")) 
 
 #Save results
-saveRDS(H1_adj_res, here("results/adjusted/post-hoc-cytokine-ratios_adj_res.RDS"))
+saveRDS(H1_adj_res, here("results/adjusted/emm_tr_adj_res.RDS"))
 
 #Save plot data
-saveRDS(H1_adj_plot_data, here("figure-data/cytokine-ratios_adj_spline.data.RDS"))
+saveRDS(H1_adj_plot_data, here("figure-data/emm_tr_adj_spline.data.RDS"))
 
