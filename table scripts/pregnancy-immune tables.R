@@ -64,7 +64,7 @@ full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj, posthocadj)
 exposure <- c("vitD_nmol_per_L", "vit_D_def", "logRBP_inf",  "vit_A_def", "logFERR_inf", "logSTFR_inf", "iron_def") 
 outcome <- c("t2_ln_agp", "t2_ln_crp", "t2_ln_ifn", "sumscore_t2_Z",
              "t3_ln_agp", "t3_ln_crp", "t3_ln_ifn","sumscore_t3_Z")
-expo_var <- c("Vit D (nmol/L)", "Vit D deficiency", "Ln RBP (umol/L)", "Vit A deficiency","Ln ferritin (ug/L)", "Ln sTfR (mg/L)", "Iron deficiency") 
+expo_var <- c("Vitamin D (nmol/L)", "Vitamin D deficiency", "Ln RBP (umol/L)", "Vitamin A deficiency","Ln ferritin (ug/L)", "Ln sTfR (mg/L)", "Iron deficiency") 
 out_var <- c("Ln AGP Age 14 months (g/L)", "Ln CRP Age 14 months (mg/L)", "Ln IFN-y Age 14 months (pg/mL)", "Sum score of 13 cytokines Age 14 months", "Ln AGP Age 28 months (g/L)", "Ln CRP Age 28 months (mg/L)", "Ln IFN-y Age 28 months (pg/mL)", "Sum score of 13 cytokines Age 28 months")
 
 tbl2 <- growth_tbl("Maternal Micronutrients and Child Immune Status", expo_var, out_var, exposure, outcome, H1, H1adj, T)
