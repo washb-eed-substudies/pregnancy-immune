@@ -211,7 +211,7 @@ growth_tbl_flex <- function(name, expo_var, out_var, exposure, outcome, results,
   flextbl
 }
 
-subgroup_tbl <- function(name, expo_var, out_var, sub_var, exposure, outcome, subgroup, results){
+subgroup_tbl <- function(name, expo_var, out_var, sub_var, exposure, outcome, subgroup, results, sub_col_size = 1, exp_col_size = 1, out_col_size = 1){
   # build table
   tbl <- data.table(matrix(nrow=0, ncol=10))
   skippedexp<-F
@@ -223,34 +223,55 @@ subgroup_tbl <- function(name, expo_var, out_var, sub_var, exposure, outcome, su
         exp <- exposure[i]
         out <- outcome[j]
         
-        filtered_adj <- results[results$Y==out & results$X==exp & results$V==sub,]
-        v1 <- paste(round(filtered_adj$`point.diff`[1], 2), " (", round(filtered_adj$`lb.diff`[1], 2), ", ", round(filtered_adj$`ub.diff`[1], 2), ")", sep="")
-        v2 <- paste(round(filtered_adj$`point.diff`[2], 2), " (", round(filtered_adj$`lb.diff`[2], 2), ", ", round(filtered_adj$`ub.diff`[2], 2), ")", sep="")
+        filtered_adj <- results[results$Y==out & results$X==exp & results$V==sub,] %>% arrange(Vlevel)
         
         if (nrow(filtered_adj)==0){
           skippedexp<-T
           next
         }
         
-        if((i==1 & j==1)|num.sub==0){
-          s_name <- sub_var[k]
-          num.sub <- num.sub+1
-        }else{
-          s_name <- " "
+        for (l in 1:nrow(filtered_adj)) {
+          v <- paste(round(filtered_adj$`point.diff`[l], 2), " (", round(filtered_adj$`lb.diff`[l], 2), ", ", round(filtered_adj$`ub.diff`[l], 2), ")", sep="")
+          
+          if((i==1 & j==1)|num.sub==0){
+            s_name <- sub_var[k]
+            num.sub <- num.sub+1
+          }else{
+            s_name <- " "
+          }
+          
+          if(j==1|skippedexp==T){
+            e_name <- expo_var[i]
+            skippedexp <- F
+          }else{
+            e_name <- " "
+          }
+          
+          if(class(filtered_adj$Vlevel) == "character"){
+            level <- filtered_adj$Vlevel[l]
+          }else{
+            level <- round(filtered_adj$Vlevel[l], 2)
+          }
+          
+          if(l == 1){
+            tbl <- rbind(tbl, list(s_name, e_name, out_var[j], filtered_adj$N[l], level,
+                                   v, ifelse(!filtered_adj$Pval[l]%>%is.na(),round(filtered_adj$Pval[l], 2), NA), 
+                                   ifelse(!filtered_adj$BH.Pval[l]%>%is.na(), round(filtered_adj$BH.Pval[l], 2),NA),"",""))
+            
+          }else if(l != nrow(filtered_adj)){
+            tbl <- rbind(tbl, list(" ", " ", " ", " ", level, 
+                                   v, ifelse(!filtered_adj$Pval[l]%>%is.na(),round(filtered_adj$Pval[l], 2), NA), 
+                                   ifelse(!filtered_adj$BH.Pval[l]%>%is.na(), round(filtered_adj$BH.Pval[l], 2),NA),"",""))
+          }else{
+            has_int_pval <- filtered_adj %>% filter(!is.na(int.Pval))
+            tbl <- rbind(tbl, list(" ", " ", " ", " ", level, 
+                                   v, ifelse(!filtered_adj$Pval[l]%>%is.na(),round(filtered_adj$Pval[l], 2), NA), 
+                                   ifelse(!filtered_adj$BH.Pval[l]%>%is.na(), round(filtered_adj$BH.Pval[l], 2),NA), 
+                                   round(has_int_pval$int.Pval[1], 2), round(has_int_pval$BH.Pval.int[1], 2)))
+          }
         }
-        if(j==1|skippedexp==T){
-          e_name <- expo_var[i]
-          skippedexp <- F
-        }else{
-          e_name <- " "
-        }
-        
-        tbl <- rbind(tbl, list(s_name, e_name, out_var[j], filtered_adj$N[1], round(filtered_adj$Vlevel[1], 2),
-                               v1, round(filtered_adj$Pval[1], 2), round(filtered_adj$BH.Pval[1], 2), "", ""))
-        tbl <- rbind(tbl, list(" ", " ", " ", " ", round(filtered_adj$Vlevel[2], 2), 
-                               v2, round(filtered_adj$Pval[2], 2), round(filtered_adj$BH.Pval[2], 2), 
-                               round(filtered_adj$int.Pval[2], 2), round(filtered_adj$BH.int.Pval[2], 2)))
       }
+      
       if (i != length(exposure)) {
         tbl <- rbind(tbl, as.list(rep("",10)))
       }
@@ -273,8 +294,8 @@ subgroup_tbl <- function(name, expo_var, out_var, sub_var, exposure, outcome, su
   flextbl <- hline_top(flextbl, part="header", border=fp_border(color="black"))
   flextbl <- align(flextbl, align = "center", part = "all")
   flextbl <- align(flextbl, j = c(1, 2, 3), align = "left", part="all")
-  flextbl <- autofit(flextbl, part = "all")
-  flextbl <- fit_to_width(flextbl, max_width=8)
+  flextbl <- fontsize(flextbl, part = "all", size = 6)
+  flextbl <- width(flextbl, 1:10, width=c(sub_col_size, exp_col_size, out_col_size, .3, .5, 1.1, .4, .8, .7, .8))
   
   flextbl
 }
