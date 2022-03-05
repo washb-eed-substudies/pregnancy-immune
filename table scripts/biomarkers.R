@@ -1,3 +1,4 @@
+rm(list=ls())
 library(data.table)
 source(here::here("0-config.R"))
 library(tidyverse)
@@ -18,7 +19,7 @@ writeqntle<-function(vector) {
 }
 
 mom_lab <-c("Maternal Biomarker", 
-        "Vit D (nmol/L)", "RBP (umol/L)", "Ferritin (ug/L)", "sTfR (mg/L)",  
+        "Vitamin D (nmol/L)", "RBP (umol/L)", "Ferritin (ug/L)", "sTfR (mg/L)",  
         "Cortisol (ug/dL)", "Estriol (ng/mL)",
         "IL-1B (pg/mL)", "IL-6 (pg/mL)", "TNF-a (pg/mL)", "IL-12 (pg/mL)", "IFN-y (pg/mL)", "IL-4 (pg/mL)", "IL-5 (pg/mL)", "IL-13 (pg/mL)", "IL-17A (pg/mL)", "IL-21 (pg/mL)", "IL-10 (pg/mL)", "IL-2 (pg/mL)", "GM-CSF (pg/mL)", "AGP (g/L)", "CRP (mg/L)")
 
@@ -27,8 +28,8 @@ child_lab <-c("Child Biomarker",
 
 mom <-c("Median (25th, 75th percentile)", 
         writeqntle(m$vitD_nmol_per_L), writeqntle(m$rbp), writeqntle(m$FERR_inf_preg), writeqntle(m$STFR_inf_preg),
-        writeqntle(m$preg_cort), writeqntle(unique_moms$preg_estri), 
-        writeqntle(unique_moms$il1_mom_t0), writeqntle(m$il6_mom_t0), writeqntle(m$tnfa_mom_t0), writeqntle(m$il12_mom_t0), writeqntle(m$ifng_mom_t0), writeqntle(m$il4_mom_t0), writeqntle(m$il5_mom_t0), writeqntle(m$il13_mom_t0), writeqntle(m$il17_mom_t0), writeqntle(m$il21_mom_t0), writeqntle(m$il10_mom_t0), writeqntle(m$il2_mom_t0), writeqntle(m$gmcsf_mom_t0), writeqntle(m$agp), writeqntle(m$crp))
+        writeqntle(m$preg_cort), writeqntle(m$preg_estri), 
+        writeqntle(m$il1_mom_t0), writeqntle(m$il6_mom_t0), writeqntle(m$tnfa_mom_t0), writeqntle(m$il12_mom_t0), writeqntle(m$ifng_mom_t0), writeqntle(m$il4_mom_t0), writeqntle(m$il5_mom_t0), writeqntle(m$il13_mom_t0), writeqntle(m$il17_mom_t0), writeqntle(m$il21_mom_t0), writeqntle(m$il10_mom_t0), writeqntle(m$il2_mom_t0), writeqntle(m$gmcsf_mom_t0), writeqntle(m$agp), writeqntle(m$crp))
         
 child_t2 <- c("Median (25th, 75th percentile)", writeqntle(d$il1_t2), writeqntle(d$il6_t2), writeqntle(d$tnfa_t2), writeqntle(d$il12_t2), writeqntle(d$ifng_t2), writeqntle(d$il4_t2), writeqntle(d$il5_t2), writeqntle(d$il13_t2), writeqntle(d$il17_t2), writeqntle(d$il21_t2), writeqntle(d$il10_t2), writeqntle(d$il2_t2), writeqntle(d$gmcsf_t2), writeqntle(d$agp_t2), writeqntle(d$crp_t2))
 
@@ -58,10 +59,10 @@ sect_properties <- prop_section(
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
 
-save_as_docx("Maternal Biomarkers" = flextable(mom_tbl), path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/biomarkers_mom.docx", 
+save_as_docx("Maternal Biomarkers" = flextable(mom_tbl), path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/supplementary/biomarkers_mom.docx", 
              pr_section = sect_properties) 
 
-save_as_docx("Child Biomarkers" = flextable(child_tbl), path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/biomarkers_child.docx", 
+save_as_docx("Child Biomarkers" = flextable(child_tbl), path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/supplementary/biomarkers_child.docx", 
              pr_section = sect_properties) 
 
 #write.csv(tbl, file=here('tables/biomarkers.csv'))
