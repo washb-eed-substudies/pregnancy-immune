@@ -119,11 +119,11 @@ t3 <- d1 %>% filter(grepl("t3", Yvar)) %>% ggplot(aes(x=X))+
   facet_grid(cols = vars(x), rows = vars(y), scales="free") +
   theme_ki() +
   theme(strip.text.x = element_text(size=10),
-        strip.text.y = element_text(hjust=0, size=10),
+        strip.text.y = element_text(hjust=0.5, size=10),
         panel.spacing = unit(.3, "lines"))      
   
 t3
-
+H1_quartiles
 
 t2 %>% ggsave(filename="figures/adj-splines-t2.jpg", width = 8, height = 9)
 t3 %>% ggsave(filename="figures/adj-splines-t3.jpg", width = 8, height = 9)
