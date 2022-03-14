@@ -21,6 +21,9 @@ for(i in Xvars){
   }
 }
 
+#Debug the gam_EMM
+H1_models$X
+
 #Get primary contrasts
 H1_res <- NULL
 for(i in 1:nrow(H1_models)){
