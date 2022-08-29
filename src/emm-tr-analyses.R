@@ -2,8 +2,15 @@ rm(list=ls())
 
 source(here::here("0-config.R"))
 
+d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS")
+d <- d %>% filter(pregnancy_immune==1)
+#d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
+
+# different iron deficiency cutoff
+d <- d %>% mutate(vit_A_def = ifelse(RBP_inf_preg < 0.7, 1, 0))
+
 #Maternal nutrition is negatively associated with child inflammation
-Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", 
+Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf",
            "vit_A_def", "iron_def", "vit_D_def")            
 Yvars <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z", 
            "t3_ln_crp", "t3_ln_agp", "t3_ln_ifn", "sumscore_t3_Z",
@@ -62,7 +69,7 @@ saveRDS(H1_plot_data, here("figure-data/cytokine-ratios_unadj_spline_data.RDS"))
 
 #Set list of adjustment variables
 #Make vectors of adjustment variable names
-Wvars<-c("sex","birthord", "momage","momheight","momedu", 
+Wvars<-c("sex","birthord", "momage","momheight","momedu","gest_age_weeks",
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth_scaled",
          "life_viol_any_t3_cat", "viol_any_preg_cat")
 

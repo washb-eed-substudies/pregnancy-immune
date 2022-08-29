@@ -2,11 +2,16 @@ rm(list=ls())
 
 source(here::here("0-config.R"))
 
+d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS")
+d <- d %>% filter(pregnancy_immune==1)
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
+
+# different iron deficiency cutoff
+d <- d %>% mutate(vit_A_def = ifelse(RBP_inf_preg < 0.7, 1, 0))
 
 #Set list of adjustment variables
 #Make vectors of adjustment variable names
-Wvars<-c("sex","birthord", "momage","momheight","momedu", 
+Wvars<-c("sex","birthord", "momage","momheight","momedu","gest_age_weeks",
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "HHwealth_scaled",
          "tr", "life_viol_any_t3_cat", "viol_any_preg_cat")
 

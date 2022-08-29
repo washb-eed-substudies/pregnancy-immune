@@ -2,22 +2,27 @@ rm(list=ls())
  
 source(here::here("0-config.R"))
 
+d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS")
+d <- d %>% filter(pregnancy_immune==1)
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
-# iron deficiency in moms
-d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
-filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
-unique_moms <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
+# different iron deficiency cutoff
+d <- d %>% mutate(vit_A_def = ifelse(RBP_inf_preg < 0.7, 1, 0))
 
-summary(unique_moms$iron_def)
-sum(unique_moms$iron_def, na.rm=T)
-filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg <= 8.3) %>% nrow()
-filter(unique_moms, FERR_inf_preg >= 12 & STFR_inf_preg > 8.3) %>% nrow()
-filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg > 8.3) %>% nrow()
-
-# diarrhea in children
-summary(d$diar7d_t2)
-summary(d$diar7d_t3)
+# # iron deficiency in moms
+# d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
+# filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
+# unique_moms <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
+# 
+# summary(unique_moms$iron_def)
+# sum(unique_moms$iron_def, na.rm=T)
+# filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg <= 8.3) %>% nrow()
+# filter(unique_moms, FERR_inf_preg >= 12 & STFR_inf_preg > 8.3) %>% nrow()
+# filter(unique_moms, FERR_inf_preg < 12 & STFR_inf_preg > 8.3) %>% nrow()
+# 
+# # diarrhea in children
+# summary(d$diar7d_t2)
+# summary(d$diar7d_t3)
 
 #Loop over exposure-outcome pairs
 
