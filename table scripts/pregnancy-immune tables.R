@@ -12,11 +12,11 @@ H1adj <- readRDS(here('results/adjusted/H1_adj_res.RDS'))
 H2adj <- readRDS(here('results/adjusted/H2_adj_res.RDS'))
 H3adj <- readRDS(here('results/adjusted/H3_adj_res.RDS'))
 H4adj <- readRDS(here('results/adjusted/H4_adj_res.RDS'))
-posthoc <- readRDS(here('results/unadjusted/post-hoc-cytokine-ratios_res.RDS'))
-posthocadj <- readRDS(here('results/adjusted/post-hoc-cytokine-ratios_adj_res.RDS'))
+cytokineratios <- readRDS(here('results/unadjusted/post-hoc-cytokine-ratios_res.RDS'))
+cytokineratiosadj <- readRDS(here('results/adjusted/post-hoc-cytokine-ratios_adj_res.RDS'))
 
-full_res <- rbind(H1, H2, H3, H4, posthoc)
-full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj, posthocadj)
+full_res <- rbind(H1, H2, H3, H4, cytokineratios, lowvitA)
+full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj, cytokineratiosadj, lowvitAadj)
 
 #### MAIN TABLES ####
 #### Table 1 ####
@@ -115,10 +115,11 @@ outcome <- c("t2_ratio_th1_th2", "t2_ratio_th1_il10", "t2_ratio_th2_il10", "t2_r
 expo_var <- c("Ln sTfR (mg/L)") 
 out_var <- c("Th1/Th2 Age 14 months", "Th1/IL-10 Age 14 months", "Th2/IL-10 Age 14 months", "Proinflammatory/IL-10 Age 14 months", "Th1/Th2 Age 28 months", "Th1/IL-10 Age 28 months", "Th2/IL-10 Age 28 months", "Proinflammatory/IL-10 Age 28 months")
 
-tbl6 <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, posthoc, posthocadj, T)
-tbl6flex <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, posthoc, posthocadj, T, 1.1, 1.4)
-tbl6supp <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, posthoc, posthocadj)
-tbl6flexsupp <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, posthoc, posthocadj)
+tbl6 <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T)
+tbl6flex <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T, 1.1, 1.4)
+tbl6supp <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
+tbl6flexsupp <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
+
 
 #### SAVE TABLES ####
 
@@ -131,7 +132,7 @@ write.csv(tbl2supp, here('tables/supplementary/immune-growth-supptable2.csv'))
 write.csv(tbl3supp, here('tables/supplementary/immune-growth-supptable3.csv'))
 write.csv(tbl4supp, here('tables/supplementary/immune-growth-supptable4.csv'))
 write.csv(tbl5supp, here('tables/supplementary/immune-growth-supptable5.csv'))
-write.csv(tbl6supp, here('tables/supplementary/posthoc.csv'))
+write.csv(tbl6supp, here('tables/supplementary/cytokine-ratios.csv'))
 
 sect_properties <- prop_section(
         page_size = page_size(orient = "landscape", width=11, height=8.5),

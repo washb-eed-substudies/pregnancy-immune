@@ -1,9 +1,12 @@
+rm(list=ls())
+
 source(here::here("0-config.R"))
 library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
+d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_immune == 1)
+#d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
   any(!is.na(row))
@@ -36,7 +39,8 @@ d <- d[apply(select(d, all_of(out)), 1, filtering),] # only has rows where we ha
 # TO ADD ADDITIONAL CHILD CHARACTERISTICS, PASS IN child_char = c(vector with variable names in the table) 
 # and child_char_names = c(vector with names for the characteristics you want to appear in the table) 
 # AS ADDITIONAL ARGUMENTS IN LINE 94 AND/OR mom_char and mom_char_names FOR ADDITIONAL MATERNAL CHARACTERISTICS
-characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_char = NULL, mom_char_names = NULL) {
+characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_char = NULL, mom_char_names = NULL) 
+#  {
   nperc <- function(vector){
     n <- sum(vector==1, na.rm=T)
     perc <- round(n/sum(!is.na(vector))*100)
@@ -48,11 +52,15 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
     paste(quantiles[3], " (", quantiles[2], ", ", quantiles[4], ")", sep="")
   }
   
-  child <- c('sex', child_char,'laz_t1','waz_t1','whz_t1','hcz_t1',
+  child <- c('sex', 'gest_age_weeks','laz_t1','waz_t1','whz_t1','hcz_t1',
              'laz_t2','waz_t2','whz_t2','hcz_t2',
              'laz_t3','waz_t3','whz_t3','hcz_t3','diar7d_t2','diar7d_t3')
   
-  mom <- c('momage', 'momheight', 'momeduy', mom_char, 'cesd_sum_t2', 'cesd_sum_ee_t3', 'pss_sum_mom_t3', 'life_viol_any_t3')
+  mom <- c('momage', 'momheight', 'momeduy', 'cesd_sum_t2', 'cesd_sum_ee_t3', 'pss_sum_mom_t3', 'life_viol_any_t3')
+  
+  hfiacat_ind <- ifelse(m$hfiacat=="Food Secure", 0, 1)
+  household <- c('hfiacat_ind')
+  sum_hfiacat_ind <- sum(na.omit(hfiacat_ind))
   
   n_med_col <- NULL
   for (var in c(child, mom)) {
@@ -69,22 +77,33 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
       n_med_col <- c(n_med_col, mediqr(d[[var]]))
     }
   }
-
-  household <- c('hfiacat_ind')
-  m$hfiacat_ind <- ifelse(m$hfiacat=="Food Secure", 0, 1)
   
-  tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),"Mother", rep("",length(mom)-1), "Household", rep("",length(household)-1)),
-                     "C2" = c("", rep("", length(child_char)), "Anthropometry (3 months)","","","",
+  tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),
+                              "Mother", rep("",length(mom)-1), 
+                              "Household", rep("",length(household)-1)),
+                     "C2" = c(rep("", length('child_char')), "",
+                              "Anthropometry (3 months)","","","",
                               "Anthropometry (14 months)","","","",
-                              "Anthropometry (28 months)","","","", "Diarrhea (14 months)", "Diarrhea (28 months)","",
-                              "Anthropometry at enrollment", "Education", rep("", length(mom_char)), "Depression 14 Months", "Depression 28 Months", "Perceived stress 28 Months", 
-                              "Intimate partner violence", "Household Food Insecurity"),
-                     "C3" = c("Female", child_char_names,
-                              "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
-                              "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
-                              "Length-for-age Z score", "Weight-for-age Z score", "Weight-for-length Z score", "Head circumference-for-age Z score",
+                              "Anthropometry (28 months)","","","", 
+                              "Diarrhea (14 months)", "Diarrhea (28 months)","",
+                              "Anthropometry at enrollment", "Education",
+                              "Depression 14 Months", "Depression 28 Months",
+                              "Perceived stress 28 Months", 
+                              "Intimate partner violence", 
+                              "Household Food Insecurity"),
+                     "C3" = c("Female",
+                              "Gestational Age (weeks)",
+                              "Length-for-age Z score", 
+                              "Weight-for-age Z score", "Weight-for-length Z score", 
+                              "Head circumference-for-age Z score",
+                              "Length-for-age Z score", 
+                              "Weight-for-age Z score", "Weight-for-length Z score", 
+                              "Head circumference-for-age Z score",
+                              "Length-for-age Z score", 
+                              "Weight-for-age Z score", "Weight-for-length Z score", 
+                              "Head circumference-for-age Z score",
                               "Caregiver-reported 7-day recall", "Caregiver-reported 7-day recall", "Age (years)", "Height (cm)", "Schooling completed (years)",
-                              mom_char_names, "CES-D score", "CES-D score", "Perceived Stress Scale score", "Any lifetime exposure", "Food-insecure households"),
+                              "CES-D score", "CES-D score", "Perceived Stress Scale score", "Any lifetime exposure", "Food-insecure households"),
                      "C4" = n_med_col)
   
   tbl1flex <- flextable(tbl1, col_keys=names(tbl1))
@@ -97,16 +116,16 @@ characteristics <- function(d, child_char = NULL, child_char_names = NULL, mom_c
   tbl1flex <- align(tbl1flex, j = 4, align = "center", part="all")
   tbl1flex <- fit_to_width(tbl1flex, max_width=8)
   tbl1flex
-}
+#}
 
 
-sum(m$hfiacat_ind)
+#sum(m$hfiacat_ind)
 
 sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
-save_as_docx("Table 1" = enroll, path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/enrollment/pregnancy-immune-enrollment.docx", 
+save_as_docx("Table 1" = tbl1flex, path="/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/enrollment/pregnancy-immune-enrollment.docx", 
              pr_section = sect_properties) 
 
 #table(d$momedu)

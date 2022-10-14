@@ -127,3 +127,4 @@ H1_quartiles
 
 t2 %>% ggsave(filename="figures/adj-splines-t2.jpg", width = 8, height = 9)
 t3 %>% ggsave(filename="figures/adj-splines-t3.jpg", width = 8, height = 9)
+

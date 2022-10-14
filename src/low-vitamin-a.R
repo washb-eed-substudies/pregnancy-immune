@@ -1,8 +1,9 @@
 rm(list=ls())
 
 source(here::here("0-config.R"))
+source(here::here("table-functions.R"))
 
-d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS")
+d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS")
 d <- d %>% filter(pregnancy_immune==1)
 #d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_child_immune_covariates_data.RDS"))
 
@@ -113,3 +114,22 @@ saveRDS(H1_adj_res, here("results/adjusted/low_vit_A_adj_res.RDS"))
 #Save plot data
 saveRDS(H1_adj_plot_data, here("figure-data/low_vit_A_adj_spline.data.RDS"))
 
+#Table
+expo_var <- c("Low Vitamin A Status") 
+out_var <- c("Ln AGP Age 14 months (g/L)", "Ln CRP Age 14 months (mg/L)", "Ln IFN-y Age 14 months (pg/mL)", "Sum score of 13 cytokines Age 14 months", "Ln AGP Age 28 months (g/L)", "Ln CRP Age 28 months (mg/L)", "Ln IFN-y Age 28 months (pg/mL)", "Sum score of 13 cytokines Age 28 months")
+
+tbl7 <- growth_tbl("Maternal Low Vitamin A Status and Child Cytokine Ratios", expo_var, out_var, Xvars, Yvars, H1_res, H1_adj_res, T)
+tbl7flex <- growth_tbl_flex("Maternal Low Vitamin A Status and Child Cytokine Ratios", expo_var, out_var, Xvars, Yvars, H1_res, H1_adj_res, T, 1.1, 1.4)
+tbl7supp <- growth_tbl("Maternal Low Vitamin A Status and Child Cytokine Ratios", expo_var, out_var, Xvars, Yvars, H1_res, H1_adj_res,)
+tbl7flexsupp <- growth_tbl_flex("Maternal Low Vitamin A Status and Child Cytokine Ratios", expo_var, out_var, Xvars, Yvars, H1_res, H1_adj_res,)
+
+write.csv(tbl7supp, here('tables/supplementary/low-vit-A.csv'))
+
+sect_properties <- prop_section(
+  page_size = page_size(orient = "landscape", width=11, height=8.5),
+  page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
+)
+
+save_as_docx("Table S8: Maternal Low Vitamin A Status and Child Cytokine Ratios" = tbl7flexsupp,
+             path='/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/tables/supplementary/supp-low-vit-a.docx',
+             pr_section = sect_properties)

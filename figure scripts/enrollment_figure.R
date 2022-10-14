@@ -153,6 +153,6 @@ p +
 #p
 
 # YOU MAY NEED TO CHANGE THE FILE PATHS HERE
-ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/figures/pregnancy-immune_enrollment_figure1.jpg"), height=14, width=9)
+ggsave(p, file = here("/Users/kjung0909/Documents/Research/WASHB/Pregnancy + Immune/pregnancy-immune/figures/pregnancy-immune_enrollment_figure1.docx"), height=14, width=9)
 
 
