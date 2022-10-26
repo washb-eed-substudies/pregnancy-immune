@@ -30,7 +30,7 @@ d1 <- d_for_plot(c("Vitamin D", "Vitamin D deficiency", "Ln RBP", "Vitamin A def
                  c("vitD_nmol_per_L", "vit_D_def", "logRBP_inf",  "vit_A_def", "logFERR_inf", "logSTFR_inf", "iron_def"),   
                  c("t2_ln_agp", "t2_ln_crp", "t2_ln_ifn", "sumscore_t2_Z",
                    "t3_ln_agp", "t3_ln_crp", "t3_ln_ifn","sumscore_t3_Z"),
-                 H1_spline, H1_quartiles) %>% left_join(colors,"x")
+                 H1_spline, H1_quartiles) #%>% left_join(colors,"x")
 
 d1$x <- factor(d1$x,levels=c("Vitamin D", "Vitamin D deficiency", "Ln RBP", "Vitamin A deficiency","Ln ferritin", "Ln sTfR", "Iron deficiency"))
 #d1$x <- factor(d1$x, levels=rev(levels(d1$x)))

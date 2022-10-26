@@ -10,6 +10,8 @@ library(boxr)
 d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_immune == 1)
 d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
 filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
+# different iron deficiency cutoff
+d <- d %>% mutate(vit_A_def = ifelse(RBP_inf_preg < 0.7, 1, 0))
 #unique moms
 m <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
 
