@@ -89,8 +89,6 @@ d1$y <- factor(d1$y)
 
 d1 <- d1 %>% filter(!grepl("def", Xvar))
 
-colors_sub <- colors %>% filter(x %in% d1$x)
-
 t2 <- d1 %>% filter(grepl("t2", Yvar)) %>% ggplot(aes(x=X))+
   geom_smooth(aes(y = fit, color=x), se = F) +
   geom_vline(aes(xintercept=q1), size=.5, color="grey30", linetype="dashed") +
