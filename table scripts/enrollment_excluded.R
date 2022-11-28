@@ -5,11 +5,19 @@ library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_immune == 1)
+d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS") %>% 
+  filter(tr %in% c("Control", "Nutrition + WSH"))
+#d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
   any(!is.na(row))
 }
+
+# d %>% group_by(dataid) %>% summarise(n=n()) %>% filter(n>1)
+# filter(d, dataid %in% c(23404, 31102, 35105)) %>% select(dataid, childid)
+# 
+# #unique moms
+# m <- rbind(filter(d, !(dataid %in% c(23404, 31102, 35105))), filter(d, dataid %in% c(23404, 31102, 35105))[1:3,])
 
 # MATERNAL PREGNANCY BIOMARKERS UNCOMMENT AND FILL IN THIS CODE (UNCOMMENT WITH CTRL+SHIFT+C ON PC)
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf", "vit_D_def", "vit_A_def", "iron_def", "ln_preg_cort", "logCRP", "logAGP", "mom_t0_ln_ifn", "sumscore_t0_mom_Z", "ln_preg_estri") 
@@ -18,12 +26,18 @@ out <- c("t2_ln_crp", "t2_ln_agp", "t2_ln_ifn", "sumscore_t2_Z",
 d1 <- d[apply(select(d, all_of(exp)), 1, filtering),] # only has rows where we have exposure data for the mom
 d1 <- d1[apply(select(d1, all_of(out)), 1, filtering),] # only has rows where we have both some exposure data and some outcome data (all kids included in analyses)
 
+d1 %>% nrow()
+d1$dataid %>% unique() %>% length()
+
 m <- d1 %>% distinct(dataid, .keep_all = T)
 
+exc <- d %>% filter(!(childid %in% d1$childid))
+exc_mom <- exc %>% distinct(dataid, .keep_all = T)
+  
 nperc <- function(vector){
-  n <- sum(vector==1, na.rm=T)
-  perc <- round(n/sum(!is.na(vector))*100)
-  paste(n, " (", perc, "%)", sep="")}
+    n <- sum(vector==1, na.rm=T)
+    perc <- round(n/sum(!is.na(vector))*100)
+    paste(n, " (", perc, "%)", sep="")}
 
 mediqr <- function(vector){
   quantiles <- round(quantile(vector, na.rm=T), 2)
@@ -36,32 +50,32 @@ child <- c('sex', 'laz_t1','waz_t1','whz_t1','hcz_t1',
 
 mom <- c('momage', 'gest_age_weeks', 'momheight', 'momeduy', 'cesd_sum_t2', 'cesd_sum_ee_t3', 'pss_sum_mom_t3', 'life_viol_any_t3')
 
-hfiacat_ind <- ifelse(m$hfiacat=="Food Secure", 0, 1)
+hfiacat_ind <- ifelse(exc_mom$hfiacat=="Food Secure", 0, 1)
 household <- c('hfiacat_ind')
 sum_hfiacat_ind <- sum(na.omit(hfiacat_ind))
 
 n_med_col <- NULL
 for (var in c(child)) {
-  if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'life_viol_any_t3') | is.factor(d[[var]])) {
+  if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'life_viol_any_t3') | is.factor(exc[[var]])) {
     if (var == 'sex') {
-      n <- sum(d$sex=='female', na.rm=T)
-      perc <- round(n/sum(!is.na(d$sex))*100)
+      n <- sum(exc$sex=='female', na.rm=T)
+      perc <- round(n/sum(!is.na(exc$sex))*100)
       n_med_col <- c(n_med_col, paste(n, " (", perc, "%)", sep=""))
     }else {
-      d[[var]] <- na_if(d[[var]], "Missing")
-      n_med_col <- c(n_med_col, nperc(d[[var]]))
+      exc[[var]] <- na_if(exc[[var]], "Missing")
+      n_med_col <- c(n_med_col, nperc(exc[[var]]))
     }
   }else {
-    n_med_col <- c(n_med_col, mediqr(d[[var]]))
+    n_med_col <- c(n_med_col, mediqr(exc[[var]]))
   }
 }
 
 for (var in c(mom)) {
-  if (var %in% c('life_viol_any_t3') | is.factor(m[[var]])) {
-    m[[var]] <- na_if(m[[var]], "Missing")
-    n_med_col <- c(n_med_col, nperc(m[[var]]))
+  if (var %in% c('life_viol_any_t3') | is.factor(exc_mom[[var]])) {
+    exc_mom[[var]] <- na_if(exc_mom[[var]], "Missing")
+    n_med_col <- c(n_med_col, nperc(exc_mom[[var]]))
   }else {
-    n_med_col <- c(n_med_col, mediqr(m[[var]]))
+    n_med_col <- c(n_med_col, mediqr(exc_mom[[var]]))
   }
 }
 
@@ -117,7 +131,7 @@ sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
-save_as_docx("Table 1" = tbl1flex, path="tables/enrollment/pregnancy-immune-enrollment.docx", 
+save_as_docx("Table 1" = tbl1flex, path="tables/enrollment/pregnancy-immune-enrollmentsupp.docx", 
              pr_section = sect_properties) 
 
 #table(d$momedu)
