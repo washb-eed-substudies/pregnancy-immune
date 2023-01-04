@@ -1,11 +1,11 @@
 rm(list=ls())
 
-source(here::here("0-config.R"))
+#source(here::here("0-config.R"))
 library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_immune == 1)
+d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
   any(!is.na(row))
