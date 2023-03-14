@@ -25,8 +25,8 @@ d_for_plot <- function(x_name, y_name, x_var, y_var, spline, quart){
 
 
 d1 <- d_for_plot(c("Vitamin D", "Vitamin D deficiency", "Ln RBP", "Vitamin A deficiency","Ln ferritin", "Ln sTfR", "Iron deficiency"),
-                 c("Ln AGP", "Ln CRP", "Ln IFN-y", "Sum score of 13\ncytokines",
-                   "Ln AGP", "Ln CRP", "Ln IFN-y", "Sum score of 13\ncytokines"), 
+                 c("Ln AGP", "Ln CRP", "Ln IFN-\u03b3", "Sum score of 13\ncytokines",
+                   "Ln AGP", "Ln CRP", "Ln IFN-\u03b3", "Sum score of 13\ncytokines"), 
                  c("vitD_nmol_per_L", "vit_D_def", "logRBP_inf",  "vit_A_def", "logFERR_inf", "logSTFR_inf", "iron_def"),   
                  c("t2_ln_agp", "t2_ln_crp", "t2_ln_ifn", "sumscore_t2_Z",
                    "t3_ln_agp", "t3_ln_crp", "t3_ln_ifn","sumscore_t3_Z"),
@@ -76,8 +76,8 @@ d_for_plot <- function(x_name, y_name, x_var, y_var, spline, quart){
 }
 
 d1 <- d_for_plot(c("Vitamin D", "Vitamin D deficiency", "Ln RBP", "Vitamin A deficiency","Ln ferritin", "Ln sTfR", "Iron deficiency"),
-                 c("Ln AGP", "Ln CRP", "Ln IFN-y", "Sum score of 13\ncytokines",
-                   "Ln AGP", "Ln CRP", "Ln IFN-y", "Sum score of 13\ncytokines"), 
+                 c("Ln AGP", "Ln CRP", "Ln IFN-U+03B3", "Sum score of 13\ncytokines",
+                   "Ln AGP", "Ln CRP", "Ln IFN-U+03B3", "Sum score of 13\ncytokines"), 
                  c("vitD_nmol_per_L", "vit_D_def", "logRBP_inf",  "vit_A_def", "logFERR_inf", "logSTFR_inf", "iron_def"),   
                  c("t2_ln_agp", "t2_ln_crp", "t2_ln_ifn", "sumscore_t2_Z",
                    "t3_ln_agp", "t3_ln_crp", "t3_ln_ifn","sumscore_t3_Z"),
