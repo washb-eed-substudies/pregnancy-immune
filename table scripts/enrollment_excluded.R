@@ -5,8 +5,7 @@ library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/sophiatan/Downloads/bangladesh-cleaned-master-data.RDS") %>% 
-  filter(tr %in% c("Control", "Nutrition + WSH"))
+d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS") %>% filter(tr %in% c("Control", "Nutrition + WSH"))
 #d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
