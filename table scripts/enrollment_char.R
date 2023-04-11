@@ -96,7 +96,7 @@ tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),
                             "Caregiver-reported 7-day recall", 
                             "Age (years)", "Gestational age (weeks)", "Height (cm)", 
                             "Schooling completed (years)",
-                            "CESD-R* score", "CESD-R* score", "Perceived Stress Scale score", "Any lifetime exposure", "Food-insecure households"),
+                            "CESD-20* score", "CESD-20* score", "Perceived Stress Scale score", "Any lifetime exposure", "Food-insecure households"),
                    "C4" = n_med_col)
 
 tbl1flex <- flextable(tbl1, col_keys=names(tbl1))
@@ -108,7 +108,7 @@ tbl1flex <- autofit(tbl1flex, part = "all")
 tbl1flex <- align(tbl1flex, j = c(1, 2, 3), align = "left", part="all")
 tbl1flex <- align(tbl1flex, j = 4, align = "center", part="all")
 tbl1flex <- fit_to_width(tbl1flex, max_width=8)
-tbl1flex %>% add_footer_row(top=F, values = "*CESD-R = Center for Epidemiologic Studies Depression Scale Revised.", colwidths = 4)
+tbl1flex %>% add_footer_row(top=F, values = "*CESD-20 = Center for Epidemiologic Studies Depression Scale Revised.", colwidths = 4)
 
 
 #sum(m$hfiacat_ind)
