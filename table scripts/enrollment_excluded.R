@@ -121,7 +121,7 @@ tbl1flex <- autofit(tbl1flex, part = "all")
 tbl1flex <- align(tbl1flex, j = c(1, 2, 3), align = "left", part="all")
 tbl1flex <- align(tbl1flex, j = 4, align = "center", part="all")
 tbl1flex <- fit_to_width(tbl1flex, max_width=8)
-tbl1flex %>% add_footer_row(top=F, values = "*CESD-20 = Center for Epidemiologic Studies Depression Scale Revised.", colwidths = 4)
+tbl1flex_foot <- tbl1flex %>% add_footer_row(top=F, values = "*CESD-20 = Center for Epidemiologic Studies Depression Scale Revised.", colwidths = 4)
 
 
 #sum(m$hfiacat_ind)
@@ -130,7 +130,7 @@ sect_properties <- prop_section(
   page_size = page_size(orient = "portrait", width=8.5, height=11),
   page_margins = page_mar(bottom=.3, top=.3, right=.3, left=.3, gutter = 0)
 )
-save_as_docx("Table 1" = tbl1flex, path="tables/enrollment/pregnancy-immune-enrollmentsupp.docx", 
+save_as_docx("Table 1" = tbl1flex_foot, path="tables/enrollment/pregnancy-immune-enrollment_excluded.docx", 
              pr_section = sect_properties) 
 
 #table(d$momedu)

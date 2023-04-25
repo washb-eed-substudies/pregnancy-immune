@@ -15,8 +15,8 @@ H4adj <- readRDS(here('results/adjusted/H4_adj_res.RDS'))
 cytokineratios <- readRDS(here('results/unadjusted/post-hoc-cytokine-ratios_res.RDS'))
 cytokineratiosadj <- readRDS(here('results/adjusted/post-hoc-cytokine-ratios_adj_res.RDS'))
 
-full_res <- rbind(H1, H2, H3, H4, cytokineratios, lowvitA)
-full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj, cytokineratiosadj, lowvitAadj)
+full_res <- rbind(H1, H2, H3, H4, cytokineratios)
+full_adj_res <- rbind(H1adj, H2adj, H3adj, H4adj, cytokineratiosadj)
 
 #### MAIN TABLES ####
 #### Table 1 ####
@@ -110,15 +110,15 @@ tbl5flexsupp <- growth_tbl_flex("Maternal Immune Status and Child Immune Status"
 
 #post-hoc results
 #### TABLE 6 ####
-exposure <- c("logSTFR_inf") 
+exposure <- c("logRBP_inf", "logSTFR_inf") 
 outcome <- c("t2_ratio_th1_th2", "t2_ratio_th1_il10", "t2_ratio_th2_il10", "t2_ratio_pro_il10", "t3_ratio_th1_th2", "t3_ratio_th1_il10", "t3_ratio_th2_il10", "t3_ratio_pro_il10")
-expo_var <- c("Ln sTfR (mg/L)") 
+expo_var <- c("Ln RBP (umol/L)", "Ln sTfR (mg/L)") 
 out_var <- c("Th1/Th2 Age 14 months", "Th1/IL-10 Age 14 months", "Th2/IL-10 Age 14 months", "Proinflammatory/IL-10 Age 14 months", "Th1/Th2 Age 28 months", "Th1/IL-10 Age 28 months", "Th2/IL-10 Age 28 months", "Proinflammatory/IL-10 Age 28 months")
 
-tbl6 <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T)
-tbl6flex <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T, 1.1, 1.4)
-tbl6supp <- growth_tbl("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
-tbl6flexsupp <- growth_tbl_flex("Maternal STfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
+tbl6 <- growth_tbl("Maternal RBP and sTfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T)
+tbl6flex <- growth_tbl_flex("Maternal RBP and sTfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj, T, 1.1, 1.4)
+tbl6supp <- growth_tbl("Maternal RBP and sTfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
+tbl6flexsupp <- growth_tbl_flex("Maternal RBP and sTfR and Child Cytokine Ratios", expo_var, out_var, exposure, outcome, cytokineratios, cytokineratiosadj,)
 
 
 #### SAVE TABLES ####

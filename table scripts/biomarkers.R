@@ -39,6 +39,7 @@ child_t3<-c("Median (25th, 75th percentile)", writeqntle(d$sumscore_t3_Z), write
 
 mom_tbl<-data.table(" "= mom_lab,
                 "At Enrollment"=mom)
+#mom_tbl %>% add_footer_row(top=F, values = "*Recommended vitamin D serum levels during pregnancy range from 50 to 75 nmol/L (.", colwidths = 4) - vit D, cortisol, il-6, il-10, ifn-y, agp, crp
 
 child_tbl<-data.table(" "= child_lab,
                 "Age 14 Months"=child_t2,
