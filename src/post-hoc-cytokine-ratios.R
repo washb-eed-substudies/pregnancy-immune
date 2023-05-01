@@ -11,7 +11,7 @@ d <- d %>% mutate(vit_A_def = ifelse(RBP_inf_preg < 0.7, 1, 0))
 
 ##Hypothesis 1
 #Maternal nutrition is negatively associated with child inflammation
-Xvars <- c("logFERR_inf", "logSTFR_inf")            
+Xvars <- c("logRBP_inf", "logSTFR_inf")            
 Yvars <- c("t2_ratio_th1_th2", "t2_ratio_th1_il10", "t2_ratio_th2_il10", "t2_ratio_pro_il10", 
            "t3_ratio_th1_th2", "t3_ratio_th1_il10", "t3_ratio_th2_il10", "t3_ratio_pro_il10")
 
