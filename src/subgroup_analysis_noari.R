@@ -79,6 +79,10 @@ for(i in 1:nrow(H1_adj_models)){
   H1_adj_res <-  bind_rows(H1_adj_res , preds$res)
 }
 
+H1_adj_res <- H1_adj_res %>% 
+  mutate(BH.Pval=p.adjust(Pval, method="BH")) %>%
+  as.data.frame()
+
 #Make list of plots
 H1_adj_plot_list <- NULL
 H1_adj_plot_data <- NULL
@@ -132,6 +136,10 @@ for(i in 1:nrow(H2_adj_models)){
   H2_adj_res <-  bind_rows(H2_adj_res , preds$res)
 }
 
+H2_adj_res <- H2_adj_res %>% 
+  mutate(BH.Pval=p.adjust(Pval, method="BH")) %>%
+  as.data.frame()
+
 #Make list of plots
 H2_adj_plot_list <- NULL
 H2_adj_plot_data <- NULL
@@ -184,6 +192,10 @@ for(i in 1:nrow(H3_models)){
   H3_res <-  bind_rows(H3_res , preds$res)
 }
 
+H3_res <- H3_res %>% 
+  mutate(BH.Pval=p.adjust(Pval, method="BH")) %>%
+  as.data.frame()
+
 #Make list of plots
 H3_plot_list <- NULL
 H3_plot_data <- NULL
@@ -235,6 +247,10 @@ for(i in 1:nrow(H4_models)){
   preds <- predict_gam_diff(fit=H4_models$fit[i][[1]], d=H4_models$dat[i][[1]], quantile_diff=c(0.25,0.75), Xvar=res$X, Yvar=res$Y)
   H4_res <-  bind_rows(H4_res , preds$res)
 }
+
+H4_res <- H4_res %>% 
+  mutate(BH.Pval=p.adjust(Pval, method="BH")) %>%
+  as.data.frame()
 
 #Make list of plots
 H4_plot_list <- NULL
