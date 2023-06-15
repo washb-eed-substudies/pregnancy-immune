@@ -33,10 +33,10 @@ subset_data <- function(j){
   # j is outcome as string
   # choose correct adjustment set based on outcome
   if(grepl("t2", j)){
-    return(d%>%filter(ari7d_t2==0))
+    return(d%>%filter(ari7d_t2==0&diar7d_t2==0))
   }
   else{
-    return(d%>%filter(ari7d_t3==0))
+    return(d%>%filter(ari7d_t3==0&diar7d_t3==0))
   }
 }
 
