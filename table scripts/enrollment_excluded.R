@@ -5,7 +5,7 @@ library(tidyverse)
 library(flextable)
 library(officer)
 
-d <- readRDS("/Users/kjung0909/Documents/Research/WASHB/bangladesh-cleaned-master-data.RDS") %>% filter(tr %in% c("Control", "Nutrition + WSH"))
+d <- readRDS("~/Downloads/bangladesh-cleaned-master-data.RDS") %>% filter(tr %in% c("Control", "Nutrition + WSH"))
 #d <- box_read("871638120165") %>% filter(.$pregnancy_immune == 1)
 
 filtering <- function(row){
@@ -45,7 +45,8 @@ mediqr <- function(vector){
 
 child <- c('sex', 'laz_t1','waz_t1','whz_t1','hcz_t1',
            'laz_t2','waz_t2','whz_t2','hcz_t2',
-           'laz_t3','waz_t3','whz_t3','hcz_t3','diar7d_t2','diar7d_t3')
+           'laz_t3','waz_t3','whz_t3','hcz_t3','diar7d_t2','diar7d_t3',
+           'ari7d_t2', 'ari7d_t3')
 
 mom <- c('momage', 'gest_age_weeks', 'momheight', 'momeduy', 'cesd_sum_t2', 'cesd_sum_ee_t3', 'pss_sum_mom_t3', 'life_viol_any_t3')
 
@@ -55,7 +56,7 @@ sum_hfiacat_ind <- sum(na.omit(hfiacat_ind))
 
 n_med_col <- NULL
 for (var in c(child)) {
-  if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'life_viol_any_t3') | is.factor(exc[[var]])) {
+  if (var %in% c('sex', 'diar7d_t2', 'diar7d_t3', 'ari7d_t2', 'ari7d_t3','life_viol_any_t3') | is.factor(exc[[var]])) {
     if (var == 'sex') {
       n <- sum(exc$sex=='female', na.rm=T)
       perc <- round(n/sum(!is.na(exc$sex))*100)
@@ -89,6 +90,7 @@ tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),
                             "Anthropometry (14 months)","","","",
                             "Anthropometry (28 months)","","","", 
                             "Diarrhea (14 months)", "Diarrhea (28 months)",
+                            "Acute respiratory illness (14 months)", "Acute respiratory illness (28 months)",
                             "","",
                             "Anthropometry at enrollment", "Education",
                             "Depression (14 months)", "Depression (28 months)",
@@ -105,6 +107,8 @@ tbl1 <- data.table("C1" = c("Child", rep("", length(child)-1),
                             "Length-for-age Z score", 
                             "Weight-for-age Z score", "Weight-for-length Z score", 
                             "Head circumference-for-age Z score",
+                            "Caregiver-reported 7-day recall", 
+                            "Caregiver-reported 7-day recall", 
                             "Caregiver-reported 7-day recall", 
                             "Caregiver-reported 7-day recall", 
                             "Age (years)", "Gestational age (weeks)", "Height (cm)", 
